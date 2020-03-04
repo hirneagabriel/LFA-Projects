@@ -15,7 +15,6 @@ while v:
         graf[i][j].append(v[2])
     v = f.readline().split()
 f.close()
-print(graf)
 cuvant=input("cuvant de verificat: ")
 ok=0
 while cuvant:
