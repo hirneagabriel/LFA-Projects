@@ -8,14 +8,14 @@ v=f.readline().split()
 while v:
     i=int(v[0])
     j=int(v[1])
-    if graf[i][j]==0:
+    if graf[i][j]=="0":
         graf[i][j]=v[2]
     else:
         graf[i][j]=list(graf[i][j])
         graf[i][j].append(v[2])
     v = f.readline().split()
 f.close()
-
+print(graf)
 cuvant=input("cuvant de verificat: ")
 ok=0
 while cuvant:
