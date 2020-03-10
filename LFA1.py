@@ -30,7 +30,7 @@ f.close()
 print(graf)
 
 cuvant = input("cuvant de verificat: ")
-ok=0
+ok = 0
 
 while cuvant:
     litera = cuvant[0]
@@ -42,9 +42,9 @@ while cuvant:
             break
     else:
         print("cuvant neacceptat")
-        ok=1
+        ok = 1
 
 if stare in starifinale and ok == 0:
     print("cuvant acceptat")
-elif ok==0:
+elif ok == 0:
     print("cuvant neacceptat")
