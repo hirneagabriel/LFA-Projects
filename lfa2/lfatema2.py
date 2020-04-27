@@ -125,7 +125,7 @@ stariFinale = list(dict.fromkeys(stariFinale))
 
 f = open("rezultat.txt","w")
 
-f.write("NFA pentru ~-DAF este:\n")
+f.write("AFD pentru AFN-lambda este:\n")
 f.write("stareinitiala: " + str(nodurifinale[0]) + "\n")
 f.write("starifinale: "+ str(stariFinale)+ "\n")
 
