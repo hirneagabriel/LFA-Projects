@@ -1,0 +1,16 @@
+digraph fnd {
+	rankdir=LR size=4
+	node [fillcolor=green shape=doublecircle style=filled]
+	"('q0', 'q2', 'q3', 'q4', 'q5', 'q6')"
+	node [fillcolor=white shape=doublecircle style=filled]
+	"('q0', 'q2', 'q3', 'q4', 'q5', 'q6')"
+	"('q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6')"
+	"('q2', 'q3', 'q4', 'q5', 'q6')"
+	node [fillcolor=white shape=circle style=filled]
+	"('q0', 'q2', 'q3', 'q4', 'q5', 'q6')" -> "('q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6')" [label=a]
+	"('q0', 'q2', 'q3', 'q4', 'q5', 'q6')" -> "('q2', 'q3', 'q4', 'q5', 'q6')" [label=b]
+	"('q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6')" -> "('q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6')" [label=a]
+	"('q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6')" -> "('q2', 'q3', 'q4', 'q5', 'q6')" [label=b]
+	"('q2', 'q3', 'q4', 'q5', 'q6')" -> "('q2', 'q3', 'q4', 'q5', 'q6')" [label=a]
+	"('q2', 'q3', 'q4', 'q5', 'q6')" -> "('q2', 'q3', 'q4', 'q5', 'q6')" [label=b]
+}
