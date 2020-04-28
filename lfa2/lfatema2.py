@@ -1,19 +1,20 @@
 from graphviz import Digraph
 
-def inchidere(i):
-    line = []
+def inchidere(i,line):
     line.append(noduri[i])
     for w in range(n):
         if '~' in graf[i][w]:
-            line.append(noduri[w])
-            sec = inchidere(w)
-            line.extend(sec)
+            if noduri[w] in line:
+                break
+            else:
+                inchidere(w,line)
+
     line.sort()
-    return tuple(dict.fromkeys(line))
+    return tuple(line)
 
 
 def tabel(indiceNod,indiceAlfabet):
-    lin=[]
+    lin = []
     for w in range(n):
         if alfabet[indiceAlfabet] in graf[indiceNod][w]:
             lin.append(noduri[w])
@@ -28,7 +29,7 @@ graf = [[" "] * n for i in range(n)]
 
 noduri = f.readline().split()
 
-stareinitiala = f.readline()
+stareinitiala = f.readline().split()
 
 starifinale = f.readline().split()
 
@@ -41,7 +42,7 @@ v = f.readline().split()
 while v:
     for z in range(len(noduri)):
         if noduri[z] == v[0]:
-            i=z
+            i = z
         if noduri[z] == v[1]:
             j = z
 
@@ -54,22 +55,23 @@ while v:
 
 f.close()
 
+
 inchideri=[]
 for i in range(n):
-    inchideri.append(inchidere(i))
-
+    line = []
+    inchideri.append(inchidere(i,line))
 
 alfabetrelatii = []
 for i in range(len(alfabet)):
-    lista2=[]
+    lista2 = []
     for j in range(n):
         lista1 = []
         for k in inchideri[j]:
             for l in range(n):
                 if k == noduri[l]:
                     lista = tabel(l,i)
-                    lista1 = sorted(lista1 + lista)
-
+                    lista1.extend(lista)
+                    lista = []
         lista1 = list(dict.fromkeys(lista1))
         lista3 = []
 
@@ -86,7 +88,7 @@ for i in range(len(alfabet)):
 
 nodurifinale = []
 for i in range(n):
-    if stareinitiala[0:2] == noduri[i]:
+    if stareinitiala[0] == noduri[i]:
         nodurifinale.append(inchideri[i])
 
 relatiifinale = []
@@ -101,19 +103,17 @@ while ok != 0:
             for l in range(len(noduri)):
                 if k in noduri[l]:
                     lista.extend(alfabetrelatii[i][l])
-
         lista.sort()
         lista = tuple(dict.fromkeys(lista))
         lista2.append(lista)
 
     relatiifinale.append(lista2)
     for q in range(len(alfabet)):
-        if lista2[q] not in nodurifinale:
+        if lista2[q] not in nodurifinale and lista2[q] != ():
             nodurifinale.append(lista2[q])
             ok += 1
 
     j += 1
-
 
 stariFinale = []
 for stare in starifinale:
@@ -123,15 +123,17 @@ for stare in starifinale:
 
 stariFinale = list(dict.fromkeys(stariFinale))
 
+
 f = open("rezultat.txt","w")
 
-f.write("AFD pentru AFN-lambda este:\n")
+f.write("AFD pentru ~AFD-lambda este:\n")
 f.write("stareinitiala: " + str(nodurifinale[0]) + "\n")
 f.write("starifinale: "+ str(stariFinale)+ "\n")
 
 for i in range(len(nodurifinale)):
     for j in range(len(relatiifinale[i])):
-        f.write(str(nodurifinale[i])+" ---> " + str(relatiifinale[i][j])+" cu " + str(alfabet[j])+ "\n")
+        if relatiifinale[i][j] != ():
+            f.write(str(nodurifinale[i])+" ---> " + str(relatiifinale[i][j])+" cu " + str(alfabet[j])+ "\n")
 f.close()
 
 f = Digraph('fnd', filename='fsm.gv')
@@ -153,6 +155,6 @@ for i in range(len(stariFinale)):
 f.attr('node', shape='circle', fillcolor="white", style="filled")
 for i in range(len(nodurifinale)):
     for j in range(len(relatiifinale[i])):
-        f.edge(str(nodurifinale[i]),str(relatiifinale[i][j]),str(alfabet[j]))
+        if relatiifinale[i][j] != ():
+            f.edge(str(nodurifinale[i]),str(relatiifinale[i][j]),str(alfabet[j]))
 f.view()
-
