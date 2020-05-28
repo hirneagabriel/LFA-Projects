@@ -4,8 +4,7 @@ def terminalaCuvant(x):
             return 1
     return 0
 
-
-def dezvoltareProductii(x):
+def generareProductii(x):
     for i in x:
         if terminalaCuvant(i) == 1:
             for j in i:
@@ -13,24 +12,24 @@ def dezvoltareProductii(x):
                     for k in productii.get(j):
                         y = i
                         if k == "~":
-                            k=""
-                        y=y.replace(j,k)
+                            k = ""
+                        y = y.replace(j,k)
                         if len(y) <= 2*n:
                             x.append(y)
-        elif terminalaCuvant(i) != 1 and len(i)<=n and i not in rezultat:
-            if i=="":
+        elif terminalaCuvant(i) != 1 and len(i) <= n and i not in rezultat:
+            if i == "":
                 rezultat.append("~")
                 x.remove(i)
             else:
                 rezultat.append(i)
+
     for c in x:
-        if terminalaCuvant(c) != 1 and len(c)<=n and c not in rezultat:
+        if terminalaCuvant(c) != 1 and len(c) <= n and c not in rezultat:
             if c == "":
                 rezultat.append("~")
                 x.remove(c)
             else:
                 rezultat.append(c)
-                x.remove(c)
 
 
 f = open("input.txt", "r")
@@ -56,7 +55,7 @@ for i in productii[S]:
     x.append(i)
 
 if n!=0:
-    dezvoltareProductii(x)
+    generareProductii(x)
     if rezultat:
         print(rezultat)
     else:
